@@ -40,6 +40,7 @@ class BookmarksTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Sluggable');
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
@@ -100,7 +101,7 @@ class BookmarksTable extends Table
     public function findTagged(Query $query, array $options)
     {
         $bookmarks = $this->find()
-            ->select(['id', 'title', 'description']);
+            ->select(['id', 'url', 'title', 'description']);
 
         if (empty($options['tags'])) {
             $bookmarks
